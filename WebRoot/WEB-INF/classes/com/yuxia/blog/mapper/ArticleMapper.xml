@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuxia.blog.mapper.ArticleMapper">
+	<select id="selectArticleByUserName" resultType="Article">
+		select a.*,u.userNickName,c1.categoryName  childCategory,c2.categoryName parentCategory 
+		from article a,category c1,category c2,user u
+		 where articleUserName=#{userName}
+		 and c1.categoryPid=c2.categoryId
+		 and a.articleUserName=u.userName
+		 and a.articleChildCategoryId=c1.categoryId
+		 order by a.articlePostTime desc
+		 limit #{index},#{pageSize}
+	</select>
+	
+	<select id="selectArticleCount" resultType="java.lang.Integer">
+		select count(1) from article where articleUserName=#{userName}
+	</select>
+	<select id="selectArticleViewCount" resultType="java.lang.Integer">
+		select sum(articleViewCount) from article where articleUserName=#{userName}
+	</select>
+	<select id="selectArticleLikeCount" resultType="java.lang.Integer">
+		select sum(articleLikeCount) from article where articleUserName=#{userName}
+	</select>
+	<select id="selectArticleCommentCount" resultType="java.lang.Integer">
+		select sum(articleCommentCount) from article where articleUserName=#{userName}
+	</select>
+	<select id="selectArticleByCategoryId" resultType="Article">
+		select a.*,u.userNickName,c1.categoryName  childCategory,c2.categoryName parentCategory 
+		from article a,category c1,category c2,user u
+		 where articleUserName=#{userName}
+		 and c1.categoryPid=c2.categoryId
+		 and a.articleUserName=u.userName
+		 and a.articleChildCategoryId=c1.categoryId
+		 and (c1.categoryId=#{categoryId} or c2.categoryId=#{categoryId})
+		 order by a.articlePostTime desc
+		 <!--  limit #{index},#{pageSize} -->
+	</select>
+	
+	
+</mapper>

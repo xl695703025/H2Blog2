@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuxia.blog.mapper.UserMapper">
+	<select id="selectUserById" resultType="User">
+		SELECT * FROM user WHERE userId=#{id}
+	</select>
+	<select id="selectUserByUserName" resultType="User">
+		SELECT * FROM user WHERE userName=#{userName}
+	</select>
+	<insert id="insertUser" parameterType="User" keyProperty="userId">
+		INSERT INTO user (userName, userPassword, userNickName, userEmail, userAvatar, userRegisterTime,  userStatus) 
+		VALUES (#{userName},#{userPassword},#{userNickName},#{userEmail},#{userAvatar},#{userRegisterTime},#{userStatus})
+	</insert>
+	<update id="updateUserByUserName">
+		UPDATE user
+		<set>
+			<if test="userNickName!=null and userNickName!=''">
+				userNickName=#{userNickName},
+			</if>
+			<if test="userPassword!=null and userPassword!=''">
+				userPassword=#{userPassword},
+			</if>
+			<if test="userEmail!=null and userEmail!=''">
+				userEmail=#{userEmail},
+			</if>
+			<if test="userAvatar!=null and userAvatar!=''">
+				userAvatar=#{userAvatar},
+			</if>
+			<if test="userNickName!=null and userNickName!=''">
+				userRegisterTime=#{userRegisterTime},
+			</if>
+			<if test="userNickName!=null and userNickName!=''">
+				userStatus=#{userStatus},
+			</if>
+			<if test="userNickName!=null and userNickName!=''">
+				userLastLoginTime=#{userLastLoginTime},
+			</if>
+		</set>
+		WHERE userName=#{userName}
+	</update>
+</mapper>
