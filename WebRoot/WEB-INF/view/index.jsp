@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gentelella Alela! | </title>
+    <title>欢迎使用氢博客</title>
     <!-- Bootstrap -->
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -38,7 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-md-3 left_col menu_fixed">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-h-square"></i> <span>H<span style="font-size: 10px">2</span> Blog~!</span></a>
+                        <a href="index" class="site_title">
+                            <i class="fa fa-h-square"></i><span>H<span style="font-size: 10px">2</span> Blog~!</span>
+                        </a>
                     </div>
                     <div class="clearfix"></div>
                     <!-- menu profile quick info -->
@@ -60,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             
                             <ul class="nav side-menu">
                                 <li>
-                                	<a href="#"><i class="fa fa-edit"></i> 写博客 </a>
+                                	<a href="javascript:;"><i class="fa fa-edit"></i> 写博客 </a>
                                 </li>
                                 <li><a><i class="fa fa-book"></i> 博文管理 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" id="articleManagement" >
@@ -86,20 +88,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </li>
                                 <li><a><i class="fa fa-align-left"></i> 分类管理 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a class="categoryAdd">新增分类</a></li>
+                                        <li><a class="categoryAddMenu">添加分类</a></li>
                                         <li><a class="categoryManage">删除/修改分类</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-tag"></i>标签管理 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a class="tagAdd">新增标签</a></li>
+                                        <li><a class="tagAddMenu">添加标签</a></li>
                                         <li><a class="tagManage">删除/修改标签</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa  fa-comment"></i> 评论管理<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a class="commentManage">所有评论</a></li>
-                                        <li><a class="commentManage">文章评论</a></li>
+                                        <li><a class="commentManage">删除评论</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -132,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- /top navigation -->
             <!-- page content -->
             <!-- /index -->
-            <div class="right_col" role="main" id="indexContent" >
+            <div class="right_col" role="main" id="indexContent"  >
                 <!-- top tiles -->
                 <div class="row tile_count">
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -189,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td class=" "></td>
                                 <td class=" "></td>
                                 <td class=" "></td>
-                                <td class=" last"><a href="#">查看</a></td>
+                                <td class=" last"><a href="javascript:;">查看</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -201,8 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- 文章管理 -->
             <div class="right_col" role="main" id="articleManageContent">
             	<p class="h1"><i class="fa fa-book"></i>博文管理：</p>
-            	<p class="h3">分类1：</p>
-            	<table id="datatable" class="table table-striped table-bordered">
+            	<p class="h2" id="category"></p>
+            	<table id="datatable" class="table table-striped jambo_table bulk_action">
                       <thead>
                             <tr class="headings">
                                 <th class="column-title">文章Id </th>
@@ -229,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- 分类管理 -->
             <div class="right_col" role="main" id="categoryManageContent">
             	<p class="h1"><i class="fa fa-align-left"></i>分类管理：</p>
-            	<table id="datatable" class="table table-striped table-bordered">
+            	<table id="datatable" class="table table-striped jambo_table bulk_action">
                       <thead>
                             <tr class="headings">
                                 <th class="column-title">分类Id </th>
@@ -245,10 +246,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td class=" "></td>
                                 <td class=" "></td>
                                 <td class=" "></td>
-                                <td class=" last"><a href="#">删除</a>|<a href="#">修改</a></td>
+                                <td class=" last"><a href="javascript:;">删除</a>|<a href="javascript:;">修改</a></td>
                             </tr>
                         </tbody>
                 </table>
+            </div>
+            <div class="right_col" role="main" id="addCategory" >
+                <p class="h1"><i class="fa fa-tag"></i>添加分类：</p>
+                <div style="width:400px;margin: 50px" >
+                    <input id="pCategoryName" type="text" class="form-control" placeholder="一级分类" />
+                    <input id="cCategoryName" type="text" style="margin-top: 20px" class="form-control" placeholder="二级分类" />
+                    <textarea id="categoryDescription" style="margin-top: 20px;height: 100px" class="form-control" placeholder="分类描述"></textarea>
+                    <br>
+                    <a class="btn btn-default submit" href="javascript:;" id="addCategoryBtn">提交</a>
+                </div>
+            </div>
+            <div class="right_col" role="main" id="updateCategory" >
+                <p class="h1"><i class="fa fa-tag"></i>修改分类：</p>
+                <div style="width:400px;margin: 50px" >
+                    <input type="hidden" id="categoryId">
+                    <input id="newCategoryName" type="text" class="form-control" placeholder="分类名" />
+                    <textarea id="newCategoryDescription" style="margin-top: 20px;height: 100px" class="form-control" placeholder="分类描述"></textarea>
+                    <br>
+                    <a class="btn btn-default submit" href="javascript:;" id="updateCategoryBtn">提交</a>
+                </div>
             </div>
             <!-- /分类管理 -->
 
@@ -257,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- 标签管理 -->
             <div class="right_col" role="main" id="tagManageContent">
             	<p class="h1"><i class="fa fa-tag"></i>标签管理：</p>
-            	<table id="datatable" class="table table-striped table-bordered">
+            	<table id="datatable" class="table table-striped jambo_table bulk_action">
                       <thead>
                             <tr class="headings">
                                 <th class="column-title">标签Id </th>
@@ -271,37 +292,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td class=" "></td>
                                 <td class=" "></td>
                                 <td class=" "></td>
-                                <td class=" last"><a href="#">删除</a>|<a href="#">修改</a></td>
+                                <td class=" last"><a href="javascript:;">删除</a>|<a href="javascript:;">修改</a></td>
                             </tr>
                         </tbody>
                 </table>
+            </div>
+            <div class="right_col" role="main" id="addTag" >
+                <p class="h1"><i class="fa fa-tag"></i>添加标签：</p>
+                <div style="width:400px;margin: 50px" >
+                    <input id="tagName" type="text" class="form-control" placeholder="标签名" />
+                    <textarea id="tagDescription" style="margin-top: 20px;height: 100px" class="form-control" placeholder="标签描述"></textarea>
+                    <br>
+                    <a class="btn btn-default submit" href="javascript:;" id="addTagBtn">提交</a>
+                </div>
+            </div>
+            <div class="right_col" role="main" id="updateTag" >
+                <p class="h1"><i class="fa fa-tag"></i>修改标签：</p>
+                <div style="width:400px;margin: 50px" >
+                    <input type="hidden" id="tagId">
+                    <input id="newtagName" type="text" class="form-control" placeholder="标签名" />
+                    <textarea id="newtagDescription" style="margin-top: 20px;height: 100px" class="form-control" placeholder="标签描述"></textarea>
+                    <br>
+                    <a class="btn btn-default submit" href="javascript:;" id="updateTagBtn">修改</a>
+                </div>
             </div>
             <!-- /标签管理 -->
 
             <!-- 评论管理 -->
             <div class="right_col" role="main" id="commentManageContent">
             	<p class="h1"><i class="fa fa-comment"></i>评论管理：</p>
-            	<table id="datatable" class="table table-striped table-bordered" style="word-wrap:break-word;word-break:break-all;">
+            	<table id="datatable" class="table table-striped jambo_table bulk_action" style="word-wrap:break-word;word-break:break-all;">
                       <thead>
                             <tr class="headings">
                                 <th class="column-title" width="70px">评论Id </th>
                                 <th class="column-title" width="100px">评论人</th>
+                                <th class="column-title" width="200x">文章标题</th>
                                 <th class="column-title" width="200px">邮箱</th>
-                                <th class="column-title" width="600px">内容</th>
+                                <th class="column-title" >内容</th>
                                 <th class="column-title" width="130px">ip地址</th>
                                 <th class="column-title" width="150px">评论时间</th>
                                 <th class="column-title no-link last" width="80px"><span class="nobr">操作</span></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody5">
                             <tr class="even pointer" id="hideRow4">
-                                <td class=" ">1</td>
-                                <td class=" ">雨夏s</td>
-                                <td class=" ">695703025@qq.com</td>
-                                <td class=" "  >ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</td>
-                                <td class=" ">127.222.222.222</td>
-                                <td class=" ">2015-11-12 09:12:11</td>
-                                <td class=" last"><a href="#">删除</a>|<a href="#">修改</a></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" "></td>
+                                <td class=" last"></td>
                             </tr>
                         </tbody>
                 </table>
@@ -311,7 +353,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Copyright © 2018 氢博客 All rights reserved. <a href="#">站点地图</a>
+                    Copyright © 2018 氢博客 All rights reserved. <a href="javascript:;">站点地图</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>

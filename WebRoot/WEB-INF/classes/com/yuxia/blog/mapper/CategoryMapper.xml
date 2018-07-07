@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select c1.categoryId pId,c1.categoryName pName,c1.categoryDescription pDescription,
 		 c2.categoryId cId,c2.categoryName cName,c2.categoryDescription cDescription
 		from category c1 LEFT JOIN category c2 on 
-		 c1.categoryId=c2.categoryPid  
-		where c1.categoryUserName=#{userName} and c1.categoryPid=0
+		 c1.categoryId=c2.categoryPid 
+		where c1.categoryUserName=#{userName} and c1.categoryPid=0 
 	</select>
 	<resultMap type="Category" id="categoryList">
 		<id property="categoryId" column="pId"/>
@@ -20,4 +20,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result property="categoryDescription" column="cDescription"/>
 		</collection>
 	</resultMap>
+	<delete id="delCategoryById">
+		delete
+		from category
+		where categoryId=#{categoryId} 
+		or categoryPid=#{categoryId}
+	</delete>
+	<insert id="insertCategory" parameterType="Category" keyProperty="categoryId">
+		insert into category(categoryUserName,categoryPid,categoryName,categoryDescription)
+		values(#{categoryUserName},#{categoryPid},#{categoryName},#{categoryDescription})
+	</insert>
+	<select id="selectCategoryByName" resultType="Category">
+		select * from category 
+		where categoryUserName=#{userName} 
+		and categoryName=#{categoryName}
+		and categoryStatus=1
+	</select>
+	<select id="selectCategoryById" resultType="Category">
+		select * from category 
+		where categoryId=#{categoryId} 
+		and categoryStatus=1
+	</select>
+	<update id="updateByCategoryId">
+		update category
+		set categoryName=#{categoryName},categoryDescription=#{categoryDescription}
+		where categoryId=#{categoryId}
+	</update>
 </mapper>

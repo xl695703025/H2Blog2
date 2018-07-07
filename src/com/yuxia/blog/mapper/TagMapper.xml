@@ -4,6 +4,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yuxia.blog.mapper.TagMapper">
 	<select id="selectTagUserName" resultType="Tag">
-		select * from tag where tagUserName=#{userName}
+		select * from tag where tagUserName=#{userName} and tagStatus=1
 	</select>
+	<update id="delTagById">
+		update tag
+		set tagStatus=0
+		where tagId=#{tagId}
+	</update>
+	<insert id="addTag">
+		insert into tag(tagUserName,tagName,tagDescription)
+		values(#{userName},#{tagName},#{tagDescription})
+	</insert>
+	<select id="selectTagByTagName" resultType="Tag">
+		select * from tag
+		where tagUserName=#{userName} and tagName=#{tagName} and tagStatus=1
+	</select>
+	<select id="selectTagByTagId" resultType="Tag">
+		select * from tag
+		where tagId=#{tagId}
+	</select>
+	<update id="updateTagByTagId">
+		update tag
+		set tagName=#{tagName},tagDescription=#{tagDescription}
+		where tagId=#{tagId}
+	</update>
 </mapper>

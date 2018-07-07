@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,6 @@ public class ArticleController {
 	
 	/**
 	 * 获取Bolg总博文，访问量，点赞数和总留言等信息
-	 * @param session
-	 * @return
 	 */
 	@RequestMapping(value="getBlogInfo",method=RequestMethod.POST)
 	@ResponseBody
@@ -55,9 +52,6 @@ public class ArticleController {
 	
 	/**
 	 * 获取文章列表
-	 * @param session
-	 * @param page
-	 * @return
 	 */
 	@RequestMapping(value="getArticles",method=RequestMethod.POST)
 	@ResponseBody
@@ -70,9 +64,6 @@ public class ArticleController {
 	}
 	/**
 	 * 根据分类获取文章列表
-	 * @param session
-	 * @param page
-	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="getArticlesByCategory",method=RequestMethod.POST)
@@ -82,6 +73,17 @@ public class ArticleController {
 		String userName=((User)session.getAttribute("user")).getUserName();//获取当前用户名
 		List<Article> articleList=articleService.getArticleListByCategoryId(userName, page, id);
 		hashMap.put("articleList", articleList);
+		return JSON.toJSONString(hashMap);
+	}
+	/**
+	 * 根据文章Id删除文章
+	 */
+	@RequestMapping(value="delArticle",method=RequestMethod.POST)
+	@ResponseBody
+	public Object delArticle(Integer articleId){
+		Map<String, Object> hashMap=new HashMap<String, Object>();
+		int res=articleService.delArticle(articleId);
+		hashMap.put("res", res);
 		return JSON.toJSONString(hashMap);
 	}
 }

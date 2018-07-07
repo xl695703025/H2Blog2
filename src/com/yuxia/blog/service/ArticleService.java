@@ -13,5 +13,5 @@ public interface ArticleService {
 	public Integer getArticleViewCount(String userName);
 	public Integer getArticleLikeCount(String userName);
 	public Integer getArticleCommentCount(String userName);
-	
+	public Integer delArticle(Integer articleId);
 }

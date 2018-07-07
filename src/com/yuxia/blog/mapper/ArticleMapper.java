@@ -21,4 +21,8 @@ public interface ArticleMapper {
 	public Integer selectArticleLikeCount(@Param("userName") String userName);
 
 	public Integer selectArticleCommentCount(@Param("userName") String userName);
+	
+	public Integer delArticleById(@Param("articleId")Integer articleId);
+	
+	public Integer updateArticleCategoryById(@Param("articleId")Integer articleId,@Param("categoryId")Integer categoryId);
 }

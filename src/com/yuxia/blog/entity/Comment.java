@@ -7,7 +7,7 @@ public class Comment {
 	//private int commentPid;//父评论Id
 	private List<Comment> childComment;//字评论
 	private String commentPname;//父评论人名称
-	private int commentArticleId;//文章Id
+	private String commentArticleTitle;//文章标题
 	private String commentAuthorName;//评论人名称
 	private String commentAuthorEmail;//评论人邮箱
 	private String commentContent;//评论内容
@@ -32,11 +32,11 @@ public class Comment {
 	public void setCommentPname(String commentPname) {
 		this.commentPname = commentPname;
 	}
-	public int getCommentArticleId() {
-		return commentArticleId;
+	public String getCommentArticleTitle() {
+		return commentArticleTitle;
 	}
-	public void setCommentArticleId(int commentArticleId) {
-		this.commentArticleId = commentArticleId;
+	public void setCommentArticleTitle(String commentArticleTitle) {
+		this.commentArticleTitle = commentArticleTitle;
 	}
 	public String getCommentAuthorName() {
 		return commentAuthorName;
@@ -76,13 +76,10 @@ public class Comment {
 	}
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", childComment="
-				+ childComment + ", commentPname=" + commentPname
-				+ ", commentArticleId=" + commentArticleId
-				+ ", commentAuthorName=" + commentAuthorName
-				+ ", commentAuthorEmail=" + commentAuthorEmail
-				+ ", commentContent=" + commentContent + ", commentIp="
-				+ commentIp + ", commentCreateTime=" + commentCreateTime
-				+ ", commentStatus=" + commentStatus + "]";
+		return "Comment [commentId=" + commentId + ", childComment=" + childComment + ", commentPname=" + commentPname
+				+ ", commentArticleTitle=" + commentArticleTitle + ", commentAuthorName=" + commentAuthorName
+				+ ", commentAuthorEmail=" + commentAuthorEmail + ", commentContent=" + commentContent + ", commentIp="
+				+ commentIp + ", commentCreateTime=" + commentCreateTime + ", commentStatus=" + commentStatus + "]";
 	}
+
 }
