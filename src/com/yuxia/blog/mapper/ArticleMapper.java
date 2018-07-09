@@ -13,6 +13,8 @@ public interface ArticleMapper {
 
 	public List<Article> selectArticleByCategoryId(@Param("userName") String userName, @Param("index") Integer index,
 			@Param("pageSize") Integer pageSize, @Param("categoryId") Integer categoryId);
+	
+	public Article selectArticleById(Integer articleId);
 
 	public Integer selectArticleCount(@Param("userName") String userName);
 
@@ -21,8 +23,17 @@ public interface ArticleMapper {
 	public Integer selectArticleLikeCount(@Param("userName") String userName);
 
 	public Integer selectArticleCommentCount(@Param("userName") String userName);
-	
-	public Integer delArticleById(@Param("articleId")Integer articleId);
-	
-	public Integer updateArticleCategoryById(@Param("articleId")Integer articleId,@Param("categoryId")Integer categoryId);
+
+	public Integer delArticleById(@Param("articleId") Integer articleId);
+
+	public Integer updateArticleCategoryById(@Param("articleId") Integer articleId,
+			@Param("categoryId") Integer categoryId);
+
+	public Integer insertArticle(@Param("article") Article article,
+			@Param("userName")String userName,
+			@Param("articleParentCategoryId") Integer articleParentCategoryId,
+			@Param("articleChildCategoryId") Integer articleChildCategoryId);
+	public Integer updateArticle(@Param("article") Article article,
+			@Param("articleParentCategoryId") Integer articleParentCategoryId,
+			@Param("articleChildCategoryId") Integer articleChildCategoryId);
 }

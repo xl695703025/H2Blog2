@@ -30,15 +30,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+    <style type="text/css">
+        .toolbar {
+            border: 1px solid #ccc;
+        }
+        .text {
+            border: 1px solid #ccc;
+            height: 370px;
+        }
+    </style>
 </head>
 
-<body class="nav-md">
+<body class="nav-md footer_fixed">
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed">
+            <div class="col-md-3 left_col menu_fixed ">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index" class="site_title">
+                        <a href="index" class="site_title" >
                             <i class="fa fa-h-square"></i><span>H<span style="font-size: 10px">2</span> Blog~!</span>
                         </a>
                     </div>
@@ -62,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             
                             <ul class="nav side-menu">
                                 <li>
-                                	<a href="javascript:;"><i class="fa fa-edit"></i> 写博客 </a>
+                                	<a href="javascript:;" class="writeBlogMenu"><i class="fa fa-edit"></i> 写博客 </a>
                                 </li>
                                 <li><a><i class="fa fa-book"></i> 博文管理 <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" id="articleManagement" >
@@ -133,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- /top navigation -->
             <!-- page content -->
             <!-- /index -->
-            <div class="right_col" role="main" id="indexContent"  >
+            <div class="right_col" role="main" id="indexContent" >
                 <!-- top tiles -->
                 <div class="row tile_count">
                     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -157,11 +166,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!-- <span class="count_bottom"> 超越<i class="green">100% </i>的用户</span> -->
                     </div>
                 </div>
+ 
                 <!-- /top tiles -->
                 <div>
                 	<p class="h1">近期发表的博文：</p>
                 </div>
                 <!-- 最近文章 -->
+
                 <div class="table-responsive">
                     <table class="table table-striped jambo_table bulk_action" id="tb">
                         <thead>
@@ -176,7 +187,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th class="column-title">发布时间</th>
                                 <th class="column-title">最后一次修改时间</th>
                                 <th class="column-title no-link last"><span class="nobr">操作</span></th>
-                                
                             </tr>
                         </thead>
                         <tbody id="tbody1">
@@ -197,6 +207,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <!-- /index -->
+
+            <!-- 写博客 -->
+            <div class="right_col" role="main" id="writeBlog">
+                <p class="h1"><i class="fa fa-book"></i>写博客：</p>
+                <div style="width:400px;float: left" >
+                    <input id="newArticleTitle"  type="text" class="form-control" placeholder="标题" /><br>
+                    <input id="newPCategory" type="text" class="form-control" placeholder="一级分类" /><br>
+                </div>
+                <div style="width:400px;float: left;margin-left: 16px" >
+                    <input id="newTagName" type="text" class="form-control" placeholder="标签(请用','隔开)"/><br>
+                    <input id="newCCategory" type="text" class="form-control" placeholder="二级分类" /><br>
+                </div>
+                <div style="clear:both;"></div>
+                <div id="div1" class="toolbar"></div>
+                <div style="padding: 8px 0; color: #ccc"></div>
+                <div id="div2" class="text">
+                    <p>请输入内容</p>
+                </div>
+                <div style="padding: 8px 0; color: #ccc"></div>
+                <a class="btn btn-default submit" style="float: right; " href="javascript:;" id="submitArticleBtn">提交</a>
+                <div style="padding: 50px 0; color: #ccc"></div>
+            </div>
+            <!-- /写博客 -->
+            <!-- 修改博客 -->
+            <div class="right_col" role="main" id="updateBlog">
+                <p class="h1"><i class="fa fa-book"></i>修改博客：</p>
+                <input id="articleId" type="hidden" >
+                <div style="width:400px;float: left" >
+                    <input id="updateArticleTitle"  type="text" class="form-control" placeholder="标题" /><br>
+                    <input id="updatePCategory" type="text" class="form-control" placeholder="一级分类" /><br>
+                </div>
+                <div style="width:400px;float: left;margin-left: 16px" >
+                    <input id="updateTagName" type="text" class="form-control" placeholder="标签(请用','隔开)"/><br>
+                    <input id="updateCCategory" type="text" class="form-control" placeholder="二级分类" /><br>
+                </div>
+                <div style="clear:both;"></div>
+                <div id="div11" class="toolbar"></div>
+                <div style="padding: 8px 0; color: #ccc"></div>
+                <div id="div22" class="text">
+                
+                </div>
+                <div style="padding: 8px 0; color: #ccc"></div>
+                <a class="btn btn-default submit" style="float: right; " href="javascript:;" id="updateArticleBtn">修改</a>
+                <div style="padding: 50px 0; color: #ccc"></div>
+            </div>
+            <!-- /修改博客 -->
 
 
             <!-- 文章管理 -->
@@ -352,7 +408,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!-- /page content -->
             <!-- footer content -->
             <footer>
-                <div class="pull-right">
+                <div class="pull-right ">
                     Copyright © 2018 氢博客 All rights reserved. <a href="javascript:;">站点地图</a>
                 </div>
                 <div class="clearfix"></div>
@@ -399,6 +455,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="build/js/custom.min.js"></script>
+    <script src="wangEditor/release/wangEditor.js"></script>
     <script src="statics/js/index.js"></script>
 </body>
 

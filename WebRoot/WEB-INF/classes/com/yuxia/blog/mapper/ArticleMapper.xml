@@ -14,7 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 order by a.articlePostTime desc
 		 limit #{index},#{pageSize}
 	</select>
-	
+	<select id="selectArticleById" resultType="Article">
+		select a.*,u.userNickName,c1.categoryName  childCategory,c2.categoryName parentCategory 
+		from article a,user u,category c1 LEFT JOIN category c2
+		on c1.categoryPid=c2.categoryId
+		 where articleId=#{articleId}
+		 and a.articleUserName=u.userName
+		 and a.articleChildCategoryId=c1.categoryId
+		 and a.articleStatus=1
+		 order by a.articlePostTime desc
+	</select>
 	<select id="selectArticleCount" resultType="java.lang.Integer">
 		select count(1) from article where articleUserName=#{userName} and articleStatus=1
 	</select>
@@ -28,14 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select sum(articleCommentCount) from article where articleUserName=#{userName} and articleStatus=1
 	</select>
 	<select id="selectArticleByCategoryId" resultType="Article">
-		select a.*,u.userNickName,c1.categoryName  parentCategory,c2.categoryName childCategory 
+		select a.*,u.userNickName,c1.categoryName  childCategory,c2.categoryName parentCategory 
 		from article a,user u,category c1 LEFT JOIN category c2
-		on c1.categoryid=c2.categoryPid
+		on c1.categoryPid=c2.categoryId
 		 where articleUserName=#{userName}
-		 and a.articleStatus=1
 		 and a.articleUserName=u.userName
-		 and (a.articleChildCategoryId=#{categoryId} or a.articleParentCategoryId=#{categoryId})
-		 and (c2.categoryId=a.articleChildCategoryId or c2.categoryId=a.articleParentCategoryId)
+		 and a.articleChildCategoryId=c1.categoryId
+		 and(a.articleChildCategoryId=#{categoryId} or a.articleParentCategoryId=#{categoryId})
+		 and a.articleStatus=1
 		 order by a.articlePostTime desc
 		 <!--  limit #{index},#{pageSize} -->
 	</select>
@@ -47,6 +56,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateArticleCategoryById" parameterType="Article">
 		update article set articleParentCategoryId=#{categoryId},articleChildCategoryId=#{categoryId}
 		where articleId=#{articleId}
+	</update>
+	
+	<insert id="insertArticle">
+		insert into article(articleUserName,articleTitle,articleContent,articleParentCategoryId,articleChildCategoryId,articleTagIds,articlePostTime)
+		values(#{userName},#{article.articleTitle},#{article.articleContent},#{articleParentCategoryId},#{articleChildCategoryId},#{article.articleTagIds},#{article.articlePostTime})
+	</insert>
+	<update id="updateArticle">
+		update article
+		set articleTitle=#{article.articleTitle},
+		articleParentCategoryId=#{articleParentCategoryId},
+		articleChildCategoryId=#{articleChildCategoryId},
+		articleTagIds=#{article.articleTagIds},
+		articleContent=#{article.articleContent},
+		articleUpdateTime=#{article.articleUpdateTime}
+		where articleId=#{article.articleId}
 	</update>
 	
 </mapper>

@@ -14,4 +14,5 @@ public interface TagMapper {
 	public Tag selectTagByTagName(@Param("userName")String userName,@Param("tagName")String tagName);
 	public Tag selectTagByTagId(Integer tagId);
 	public int updateTagByTagId(Tag tag);
+	public int insertTag(Tag tag);
 }

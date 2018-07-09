@@ -23,6 +23,8 @@ $(document).ready(function() {
         $("#updateTag").hide();
         $("#addCategory").hide();
         $("#updateCategory").hide();
+        $("#writeBlog").hide();
+        $("#updateBlog").hide();
     }
     hideAll();
     $("#indexContent").show();
@@ -64,6 +66,120 @@ $(document).ready(function() {
             alert("网络错误");
         }
     });
+
+
+    var E = window.wangEditor;
+    var editor1 = new E('#div1', '#div2'); // 两个参数也可以传入 elem 对象，class 选择器
+    editor1.customConfig.menus = [
+        'head', // 标题
+        'bold', // 粗体
+        'fontSize', // 字号
+        'fontName', // 字体
+        'italic', // 斜体
+        'underline', // 下划线
+        'strikeThrough', // 删除线
+        'foreColor', // 文字颜色
+        'backColor', // 背景颜色
+        'link', // 插入链接
+        'list', // 列表
+        'justify', // 对齐方式
+        'quote', // 引用
+        'emoticon', // 表情
+        'image', // 插入图片
+        'table', // 表格
+        'code', // 插入代码
+        'undo', // 撤销
+        'redo' // 重复
+    ];
+    editor1.customConfig.uploadFileName = 'img';
+    editor1.customConfig.uploadImgServer = 'uploadImg';
+    editor1.create();
+    var E1 = window.wangEditor;
+    var editor2 = new E1('#div11', '#div22'); // 两个参数也可以传入 elem 对象，class 选择器
+    editor1.customConfig.menus = [
+        'head', // 标题
+        'bold', // 粗体
+        'fontSize', // 字号
+        'fontName', // 字体
+        'italic', // 斜体
+        'underline', // 下划线
+        'strikeThrough', // 删除线
+        'foreColor', // 文字颜色
+        'backColor', // 背景颜色
+        'link', // 插入链接
+        'list', // 列表
+        'justify', // 对齐方式
+        'quote', // 引用
+        'emoticon', // 表情
+        'image', // 插入图片
+        'table', // 表格
+        'code', // 插入代码
+        'undo', // 撤销
+        'redo' // 重复
+    ];
+    editor2.customConfig.uploadFileName = 'img';
+    editor2.customConfig.uploadImgServer = 'uploadImg';
+    editor2.create();
+
+
+    $(".writeBlogMenu").click(function(event) {
+        hideAll();
+        $("#writeBlog").show();
+    });
+    $("#submitArticleBtn").click(function(event) {
+        $.ajax({
+            url: 'addArticle',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "articleTitle": $("#newArticleTitle").val(),
+                "pCategory": $("#newPCategory").val(),
+                "articleTagIds": $("#newTagName").val(),
+                "cCategory": $("#newCCategory").val(),
+                "articleContent": editor1.txt.html()
+            },
+            success: function(data) {
+                if (data.res > 0) {
+                    alert("提交成功~!");
+                    location.reload();
+                } else {
+                    alert("提交失败~!");
+                }
+            },
+            error: function() {
+                alert("网络错误~!");
+            }
+        });
+    });
+    $("#updateArticleBtn").click(function(event) {
+    	$.ajax({
+            url: 'updateArticle',
+            type: 'post',
+            dataType: 'json',
+            data: {
+            	"articleId":$("#articleId").val(),
+                "articleTitle": $("#updateArticleTitle").val(),
+                "pCategory": $("#updatePCategory").val(),
+                "articleTagIds": $("#updateTagName").val(),
+                "cCategory": $("#updateCCategory").val(),
+                "articleContent": editor2.txt.html()
+            },
+            success: function(data) {
+                if (data.res > 0) {
+                    alert("修改成功~!");
+                    location.reload();
+                } else {
+                    alert("修改失败~!");
+                }
+            },
+            error: function() {
+                alert("网络错误~!");
+            }
+        });
+    });
+
+
+
     $(".blogManage").click(function(event) {
         //将其它模块隐藏
         hideAll();
@@ -124,7 +240,28 @@ $(document).ready(function() {
         });
     }
     updateArticle = function() {
+    	hideAll();
+    	$("#updateBlog").show();
 
+    	var $tds=$(this).parent().parent().children();
+    	$("#articleId").val($tds.eq(0).text());
+    	$("#updateArticleTitle").val($tds.eq(1).text());
+    	$("#updatePCategory").val($tds.eq(4).text());
+    	$("#updateTagName").val($tds.eq(6).text());
+    	$("#updateCCategory").val($tds.eq(5).text());
+    	$.ajax({
+    		url: 'getArticleById',
+    		type: 'post',
+    		dataType: 'json',
+    		data: {"id": $tds.eq(0).text()},
+    		success:function(data){
+    			editor2.txt.html(data.article.articleContent);
+    		},
+    		error:function(){
+
+    		}
+    	});
+    	
     }
     $(".categoryManage").click(function(event) {
         //将其它模块隐藏
@@ -247,10 +384,10 @@ $(document).ready(function() {
         $('#newCategoryDescription').val($tr.children().eq(3).text())
     }
     $("#updateCategoryBtn").click(function(event) {
-    	if($("#newCategoryName").val()==""){
-    		alert("分类名不能为空~!");
-    		return ;
-    	}
+        if ($("#newCategoryName").val() == "") {
+            alert("分类名不能为空~!");
+            return;
+        }
         $.ajax({
             url: 'updateCategory',
             type: 'post',
