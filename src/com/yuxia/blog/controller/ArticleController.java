@@ -160,4 +160,16 @@ public class ArticleController {
 		hashMap.put("res", res);
 		return JSON.toJSONString(hashMap);
 	}
+	/**
+	 * 获取分页
+	 */
+	@RequestMapping(value = "getPage", method = RequestMethod.POST)
+	@ResponseBody
+	public Object getPage(HttpSession session, Integer id) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		String userName = ((User) session.getAttribute("user")).getUserName();
+		int res=articleService.getTotalPage(id, userName);
+		hashMap.put("res", res%10==0?res/10:res/10+1);
+		return JSON.toJSONString(hashMap);
+	}
 }

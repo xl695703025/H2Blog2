@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 and(a.articleChildCategoryId=#{categoryId} or a.articleParentCategoryId=#{categoryId})
 		 and a.articleStatus=1
 		 order by a.articlePostTime desc
-		 <!--  limit #{index},#{pageSize} -->
+		 limit #{index},#{pageSize} 
 	</select>
 	<delete id="delArticleById">
 		delete from article
@@ -72,5 +72,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		articleUpdateTime=#{article.articleUpdateTime}
 		where articleId=#{article.articleId}
 	</update>
+	<select id="getTotalPage" resultType="java.lang.Integer">
+		select count(1) from article
+		where (articleChildCategoryId=#{categoryId} or articleParentCategoryId=#{categoryId})
+		and articleUserName=#{userName}
+	</select>
 	
 </mapper>

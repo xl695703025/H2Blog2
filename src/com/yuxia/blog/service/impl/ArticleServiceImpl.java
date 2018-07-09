@@ -231,4 +231,10 @@ public class ArticleServiceImpl implements ArticleService {
 		article.setArticleUpdateTime(new Date());
 		return articleMapper.updateArticle(article, articleParentCategoryId, articleChildCategoryId);
 	}
+	@Override
+	public Integer getTotalPage(Integer id, String userName) {
+		return articleMapper.getTotalPage(id, userName);
+	}
+
+
 }

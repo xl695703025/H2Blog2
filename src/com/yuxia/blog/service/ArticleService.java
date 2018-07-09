@@ -28,5 +28,6 @@ public interface ArticleService {
 	public Article getArticleById(Integer articleId);
 	
 	public Integer updateArticle(Article article, String userName,String pCategoryName, String cCategoryName);
-
+	
+	public Integer getTotalPage(Integer id,String userName);
 }

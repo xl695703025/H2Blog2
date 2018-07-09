@@ -204,6 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </tr>
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
             <!-- /index -->
@@ -278,6 +279,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             
                         </tbody>
                 </table>
+                <p style="float: right"><span style="font-size: 25px">当前页数:[<span id="now"></span>/<span id="total"></span>]&nbsp;</span>
+                    <a class="btn btn-default submit" href="javascript:;" id="pPage">上一页</a>
+                    <a class="btn btn-default submit" href="javascript:;" id="nPage">下一页</a>
+                </p>
             </div>
             <!-- /文章管理 -->
 

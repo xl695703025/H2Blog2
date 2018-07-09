@@ -93,6 +93,7 @@ $(document).ready(function() {
     ];
     editor1.customConfig.uploadFileName = 'img';
     editor1.customConfig.uploadImgServer = 'uploadImg';
+    editor1.customConfig.uploadImgTimeout = 600000
     editor1.create();
     var E1 = window.wangEditor;
     var editor2 = new E1('#div11', '#div22'); // 两个参数也可以传入 elem 对象，class 选择器
@@ -119,6 +120,7 @@ $(document).ready(function() {
     ];
     editor2.customConfig.uploadFileName = 'img';
     editor2.customConfig.uploadImgServer = 'uploadImg';
+    editor2.customConfig.uploadImgTimeout = 600000
     editor2.create();
 
 
@@ -152,12 +154,12 @@ $(document).ready(function() {
         });
     });
     $("#updateArticleBtn").click(function(event) {
-    	$.ajax({
+        $.ajax({
             url: 'updateArticle',
             type: 'post',
             dataType: 'json',
             data: {
-            	"articleId":$("#articleId").val(),
+                "articleId": $("#articleId").val(),
                 "articleTitle": $("#updateArticleTitle").val(),
                 "pCategory": $("#updatePCategory").val(),
                 "articleTagIds": $("#updateTagName").val(),
@@ -179,19 +181,79 @@ $(document).ready(function() {
     });
 
 
-
+    var pickId;
     $(".blogManage").click(function(event) {
         //将其它模块隐藏
         hideAll();
         //将自己显示出来
         $("#articleManageContent").show();
         $("#category").text('分类:' + $(this).text());
-        var id = $(this).attr("id");
+        pickId = $(this).attr("id");
+        $.ajax({
+            url: 'getPage',
+            type: 'post',
+            dataType: 'json',
+            data: { "id": pickId },
+            success: function(data) {
+                $("#now").text(1);
+                $("#total").text(data.res);
+                if ($("#now").text() <= 1) {
+                    $("#pPage").hide();
+                } else {
+                    $("#pPage").show();
+                }
+                if ($("#now").text() >= $("#total").text()) {
+                    $("#nPage").hide();
+                } else {
+                    $("#nPage").show();
+                }
+     			getArticles(pickId, $("#now").text(), 10);
+            },
+            error: function() {
+                alert("网络错误~！");
+            }
+        });
+    });
+    $("#pPage").click(function(event) {
+        $("#now").text(parseInt($("#now").text()) - 1);
+        if ($("#now").text() <= 1) {
+            $("#pPage").hide();
+        } else {
+            $("#pPage").show();
+        }
+        if ($("#now").text() >= $("#total").text()) {
+            $("#nPage").hide();
+        } else {
+            $("#nPage").show();
+        }
+        $("#tbody2").empty();
+        getArticles(pickId, $("#now").text(), 10);
+    });
+    $("#nPage").click(function(event) {
+    	$("#now").text(parseInt($("#now").text()) + 1);
+        if ($("#now").text() <= 1) {
+            $("#pPage").hide();
+        } else {
+            $("#pPage").show();
+        }
+        if ($("#now").text() >= $("#total").text()) {
+            $("#nPage").hide();
+        } else {
+            $("#nPage").show();
+        }
+        $("#tbody2").empty();
+        getArticles(pickId, $("#now").text(), 10);
+    });
+    getArticles = function(id, pageNow, pageSize) {
         $.ajax({
             url: 'getArticlesByCategory',
             type: 'post',
             dataType: 'json',
-            data: { "id": id },
+            data: {
+                "id": id,
+                "pageNow": pageNow,
+                "pageSize": pageSize
+            },
             success: function(data) {
                 $("#tbody2").empty();
                 var articleList = data.articleList;
@@ -216,7 +278,7 @@ $(document).ready(function() {
                 }
             }
         });
-    });
+    }
     delArticle = function() {
         $this = $(this);
         $.ajax({
@@ -240,28 +302,28 @@ $(document).ready(function() {
         });
     }
     updateArticle = function() {
-    	hideAll();
-    	$("#updateBlog").show();
+        hideAll();
+        $("#updateBlog").show();
 
-    	var $tds=$(this).parent().parent().children();
-    	$("#articleId").val($tds.eq(0).text());
-    	$("#updateArticleTitle").val($tds.eq(1).text());
-    	$("#updatePCategory").val($tds.eq(4).text());
-    	$("#updateTagName").val($tds.eq(6).text());
-    	$("#updateCCategory").val($tds.eq(5).text());
-    	$.ajax({
-    		url: 'getArticleById',
-    		type: 'post',
-    		dataType: 'json',
-    		data: {"id": $tds.eq(0).text()},
-    		success:function(data){
-    			editor2.txt.html(data.article.articleContent);
-    		},
-    		error:function(){
+        var $tds = $(this).parent().parent().children();
+        $("#articleId").val($tds.eq(0).text());
+        $("#updateArticleTitle").val($tds.eq(1).text());
+        $("#updatePCategory").val($tds.eq(4).text());
+        $("#updateTagName").val($tds.eq(6).text());
+        $("#updateCCategory").val($tds.eq(5).text());
+        $.ajax({
+            url: 'getArticleById',
+            type: 'post',
+            dataType: 'json',
+            data: { "id": $tds.eq(0).text() },
+            success: function(data) {
+                editor2.txt.html(data.article.articleContent);
+            },
+            error: function() {
 
-    		}
-    	});
-    	
+            }
+        });
+
     }
     $(".categoryManage").click(function(event) {
         //将其它模块隐藏

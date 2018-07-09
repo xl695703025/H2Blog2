@@ -36,4 +36,5 @@ public interface ArticleMapper {
 	public Integer updateArticle(@Param("article") Article article,
 			@Param("articleParentCategoryId") Integer articleParentCategoryId,
 			@Param("articleChildCategoryId") Integer articleChildCategoryId);
+	public Integer getTotalPage(@Param("categoryId")Integer id,@Param("userName")String userName);
 }
