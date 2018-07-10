@@ -77,5 +77,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where (articleChildCategoryId=#{categoryId} or articleParentCategoryId=#{categoryId})
 		and articleUserName=#{userName}
 	</select>
+	<update id="updateArticleInfo">
+		update article 
+		<set>
+			<if test="articleViewCount!=null">articleViewCount=articleViewCount+1,</if>
+			<if test="articleCommentCount!=null">articleCommentCount=articleCommentCount+1,</if>
+			<if test="articleLikeCount!=null">articleLikeCount=articleLikeCount+1,</if>
+		</set>
+		where articleId=#{articleId}
+	</update>
 	
 </mapper>

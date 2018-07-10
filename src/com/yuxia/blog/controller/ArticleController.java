@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.math.RandomUtils;
@@ -170,6 +172,27 @@ public class ArticleController {
 		String userName = ((User) session.getAttribute("user")).getUserName();
 		int res=articleService.getTotalPage(id, userName);
 		hashMap.put("res", res%10==0?res/10:res/10+1);
+		return JSON.toJSONString(hashMap);
+	}
+	/**
+	 * 点赞
+	 */
+	@RequestMapping(value = "like", method = RequestMethod.POST)
+	@ResponseBody
+	public Object like(HttpServletResponse response,HttpServletRequest request,Integer articleId) {
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		Cookie[] cookies = request.getCookies();
+		for(Cookie c:cookies){
+			if(c.getName().equals("article"+articleId)){
+				hashMap.put("res", 0);
+				return JSON.toJSONString(hashMap);
+			}
+		}
+		int res=articleService.like(articleId);
+		Cookie cookie=new Cookie("article"+articleId, "ture");
+		cookie.setMaxAge(Integer.MAX_VALUE);
+		response.addCookie(cookie);
+		hashMap.put("res", res);
 		return JSON.toJSONString(hashMap);
 	}
 }

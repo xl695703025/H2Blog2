@@ -13,6 +13,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -143,6 +144,21 @@ public class UserController {
 		List<Category> categoryList = categoryService.getCategoryList(userName);
 		session.setAttribute("categoryList", categoryList);
 		return "index";
+	}
+	/**
+	 * 游客浏览页面
+	 */
+	@RequestMapping(value = "user/{userName}", method = RequestMethod.GET)
+	public String index(@PathVariable String userName,HttpSession session) {
+		List<Category> categoryList = categoryService.getCategoryList(userName);
+		System.out.println(userName);
+		User user=userService.getUserInfo(userName);
+		if(user==null){
+			return "page_404";
+		}
+		session.setAttribute("user", user);
+		session.setAttribute("categoryList", categoryList);
+		return "user";
 	}
 
 	/**

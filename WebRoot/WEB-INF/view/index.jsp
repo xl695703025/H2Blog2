@@ -200,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td class=" "></td>
                                 <td class=" "></td>
                                 <td class=" "></td>
-                                <td class=" last"><a href="javascript:;">查看</a></td>
+                                <td class=" last"></td>
                             </tr>
                         </tbody>
                     </table>

@@ -43,4 +43,18 @@ public class UserServiceImpl implements UserService {
 			return false;
 	}
 
+	@Override
+	public User getUserInfo(String userName) {
+		User user = userMapper.selectUserByUserName(userName);
+		if(user==null){
+			return user;
+		}
+		System.out.println(user);
+		user.setUserEmail(null);
+		user.setUserId(-1);
+		user.setUserLastLoginTime(null);
+		user.setUserRegisterTime(null);
+		user.setUserPassword(null);
+		return user;
+	}
 }

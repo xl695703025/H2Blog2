@@ -33,6 +33,10 @@
 	<mvc:resources mapping="/vendors/**" location="/vendors/"></mvc:resources>
 	<mvc:resources mapping="/statics/**" location="/statics/"></mvc:resources>
 	<mvc:resources mapping="/wangEditor/**" location="/wangEditor/"></mvc:resources>
+	<mvc:resources mapping="/user/build/**" location="/build/"></mvc:resources>
+	<mvc:resources mapping="/user/vendors/**" location="/vendors/"></mvc:resources>
+	<mvc:resources mapping="/user/statics/**" location="/statics/"></mvc:resources>
+	<mvc:resources mapping="/user/wangEditor/**" location="/wangEditor/"></mvc:resources>
 	<!-- 文件上传 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -45,7 +49,7 @@
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/index/**" />
+			<mvc:mapping path="/index*" />
 			<bean class="com.yuxia.blog.Interceptor.UserInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

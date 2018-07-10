@@ -20,4 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from comment
 		where commentArticleId=#{articleId}
 	</delete>
+	<select id="selectCommentArticleId" resultType="Comment">
+		select * from comment
+		where commentArticleId=#{articleId}
+	</select>
+	<insert id="insertComment">
+		insert into comment(commentArticleId,commentAuthorName,commentAuthorEmail,commentContent,commenIp,commentCreateTime)
+		values(#{articleId},#{commentAuthorName},#{commentAuthorEmail},#{commentContent},#{commenIp},#{commentCreateTime})
+	</insert>
 </mapper>

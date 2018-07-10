@@ -60,6 +60,11 @@ $(document).ready(function() {
                 tds.eq(6).text(articleList[i].articleTagIds);
                 tds.eq(7).text(articleList[i].articlePostTime);
                 tds.eq(8).text(articleList[i].articleUpdateTime);
+                tds.eq(9).append($("<a href='javascript:;'>删除</a>|<a href='javascript:;'>修改</a>"));
+                var delBtn = tds.eq(9).children().eq(0);
+                delBtn.bind('click', delArticle);
+                var updateBtn = tds.eq(9).children().eq(1);
+                updateBtn.bind('click', updateArticle);
             }
         },
         error: function() {
@@ -93,7 +98,7 @@ $(document).ready(function() {
     ];
     editor1.customConfig.uploadFileName = 'img';
     editor1.customConfig.uploadImgServer = 'uploadImg';
-    editor1.customConfig.uploadImgTimeout = 600000
+    editor1.customConfig.uploadImgTimeout = 600000;
     editor1.create();
     var E1 = window.wangEditor;
     var editor2 = new E1('#div11', '#div22'); // 两个参数也可以传入 elem 对象，class 选择器
@@ -120,7 +125,7 @@ $(document).ready(function() {
     ];
     editor2.customConfig.uploadFileName = 'img';
     editor2.customConfig.uploadImgServer = 'uploadImg';
-    editor2.customConfig.uploadImgTimeout = 600000
+    editor2.customConfig.uploadImgTimeout = 600000;
     editor2.create();
 
 
@@ -129,6 +134,18 @@ $(document).ready(function() {
         $("#writeBlog").show();
     });
     $("#submitArticleBtn").click(function(event) {
+        if ($("#newArticleTitle").val() == '') {
+            alert("标题不能为空~！");
+            return false;
+        }
+        if ($("#newPCategory").val() == '') {
+            alert("一级分类不能为空");
+            return false;
+        }
+        if ($("#newCCategory").val() == '') {
+            alert("二级分类不能为空");
+            return false;
+        }
         $.ajax({
             url: 'addArticle',
             type: 'post',
@@ -154,6 +171,18 @@ $(document).ready(function() {
         });
     });
     $("#updateArticleBtn").click(function(event) {
+        if ($("#updateArticleTitle").val() == '') {
+            alert("标题不能为空~！");
+            return false;
+        }
+        if ($("#updatePCategory").val() == '') {
+            alert("一级分类不能为空");
+            return false;
+        }
+        if ($("#updateCCategory").val() == '') {
+            alert("二级分类不能为空");
+            return false;
+        }
         $.ajax({
             url: 'updateArticle',
             type: 'post',
@@ -207,7 +236,7 @@ $(document).ready(function() {
                 } else {
                     $("#nPage").show();
                 }
-     			getArticles(pickId, $("#now").text(), 10);
+                getArticles(pickId, $("#now").text(), 10);
             },
             error: function() {
                 alert("网络错误~！");
@@ -230,7 +259,7 @@ $(document).ready(function() {
         getArticles(pickId, $("#now").text(), 10);
     });
     $("#nPage").click(function(event) {
-    	$("#now").text(parseInt($("#now").text()) + 1);
+        $("#now").text(parseInt($("#now").text()) + 1);
         if ($("#now").text() <= 1) {
             $("#pPage").hide();
         } else {
@@ -270,7 +299,7 @@ $(document).ready(function() {
                     tds.eq(6).text(articleList[i].articleTagIds);
                     tds.eq(7).text(articleList[i].articlePostTime);
                     tds.eq(8).text(articleList[i].articleUpdateTime);
-                    tds.eq(9).text('').append($("<a href='javascript:;'>删除</a>|<a href='javascript:;'>修改</a>"));
+                    tds.eq(9).append($("<a href='javascript:;'>删除</a>|<a href='javascript:;'>修改</a>"));
                     var delBtn = tds.eq(9).children().eq(0);
                     delBtn.bind('click', delArticle);
                     var updateBtn = tds.eq(9).children().eq(1);
@@ -636,38 +665,5 @@ $(document).ready(function() {
                 }
             }
         });
-
     });
-
-
-    /*$.ajax({
-    	url: 'getCategory',
-    	type: 'post',
-    	dataType: 'json',
-    	success:function(data){
-    		var categoryList=data.categoryList;
-    		for(var i=0;i<categoryList.length;i++){
-    			var $li=$('<li><a href="#">'+categoryList[i].categoryName+'</a></li>');
-    			childList=categoryList[i].childCategoryList;
-    			var $ul=$('<ul class="nav child_menu" style="display: block"></ul>');
-    			for(var j=0;j<childList.length;j++){
-    				$ul.append('<li><a>'+childList[j].categoryName+'</a></li>');
-    			}
-    			if(childList.length>=1){
-    				$li.children('a').append('<span class="fa fa-chevron-down"></span>');
-    				alert($ul.html());
-    				$li.bind('click', function(event) {
-    					alert(1);
-    					$ul.css("display","block");
-    				});
-    				$li.append($ul);
-    			}
-    			$("#articleManagement").append($li);
-    		}
-    	},
-        error: function() {
-            alert("网络错误");
-        }
-    });*/
-
 });

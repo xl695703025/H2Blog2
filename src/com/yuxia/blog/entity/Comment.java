@@ -1,6 +1,9 @@
 package com.yuxia.blog.entity;
 
+import java.util.Date;
 import java.util.List;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class Comment {
 	private int commentId;//评论Id
@@ -12,7 +15,8 @@ public class Comment {
 	private String commentAuthorEmail;//评论人邮箱
 	private String commentContent;//评论内容
 	private String commentIp;//评论ip
-	private String commentCreateTime;//评论时间
+	@JSONField(format="yyyy-MM-dd HH:dd:ss")
+	private Date commentCreateTime;//评论时间
 	private String commentStatus;//评论状态
 	public int getCommentId() {
 		return commentId;
@@ -62,10 +66,10 @@ public class Comment {
 	public void setCommentIp(String commentIp) {
 		this.commentIp = commentIp;
 	}
-	public String getCommentCreateTime() {
+	public Date getCommentCreateTime() {
 		return commentCreateTime;
 	}
-	public void setCommentCreateTime(String commentCreateTime) {
+	public void setCommentCreateTime(Date commentCreateTime) {
 		this.commentCreateTime = commentCreateTime;
 	}
 	public String getCommentStatus() {
@@ -81,5 +85,6 @@ public class Comment {
 				+ ", commentAuthorEmail=" + commentAuthorEmail + ", commentContent=" + commentContent + ", commentIp="
 				+ commentIp + ", commentCreateTime=" + commentCreateTime + ", commentStatus=" + commentStatus + "]";
 	}
+
 
 }

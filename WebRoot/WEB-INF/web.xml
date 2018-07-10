@@ -48,4 +48,15 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	 <!-- 需要访问的资源不存在 -->
+   <error-page>
+      <error-code>404</error-code>
+      <location>/WEB-INF/view/page_404.jsp</location>
+   </error-page>
+   <!-- 服务器内部错误 -->
+   <error-page>
+      <error-code>500</error-code>
+      <location>/WEB-INF/view/page_500.jsp</location>
+   </error-page>
 </web-app>

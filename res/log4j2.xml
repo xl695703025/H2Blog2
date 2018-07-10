@@ -7,9 +7,7 @@
 
 	<Properties>
 		<!-- 配置日志文件输出目录，此配置将日志输出到tomcat根目录下的指定文件夹 -->
-		<!-- <Property name="LOG_HOME">${sys:catalina.home}/WebAppLogs/SSHExample</Property> -->
-		<Property name="LOG_HOME">D:/APP/tomcat7/apache-tomcat-7.0.85/WebAppLogs/SSHExample 
-		</Property> 
+		<Property name="LOG_HOME">${sys:catalina.home}/WebAppLogs/SSHExample</Property>
 	</Properties>
 
 	<Appenders>

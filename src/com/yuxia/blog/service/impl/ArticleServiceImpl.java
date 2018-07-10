@@ -235,6 +235,10 @@ public class ArticleServiceImpl implements ArticleService {
 	public Integer getTotalPage(Integer id, String userName) {
 		return articleMapper.getTotalPage(id, userName);
 	}
+	@Override
+	public Integer like(Integer articleId) {
+		return articleMapper.updateArticleInfo(articleId, null, null, 1);
+	}
 
 
 }

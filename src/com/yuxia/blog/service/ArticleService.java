@@ -30,4 +30,5 @@ public interface ArticleService {
 	public Integer updateArticle(Article article, String userName,String pCategoryName, String cCategoryName);
 	
 	public Integer getTotalPage(Integer id,String userName);
+	public Integer like(Integer articleId);
 }

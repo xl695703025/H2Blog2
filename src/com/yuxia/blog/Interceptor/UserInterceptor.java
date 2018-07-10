@@ -27,6 +27,9 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 		if(null==user){
 			response.sendRedirect("login");
 			return false;
+		}else if(user.getUserPassword()==null){
+			response.sendRedirect("login");
+			return false;
 		}
 		return true;
 	}

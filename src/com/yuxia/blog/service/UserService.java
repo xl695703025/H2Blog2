@@ -7,4 +7,5 @@ public interface UserService {
 	public int register(User user);
 	public User login(String userName,String password);
 	public boolean checkUserName(String userName);
+	public User getUserInfo(String userName);
 }
