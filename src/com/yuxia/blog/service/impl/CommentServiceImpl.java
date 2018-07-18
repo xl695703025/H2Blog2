@@ -17,19 +17,32 @@ public class CommentServiceImpl implements CommentService {
 	private CommentMapper commentMapper;
 	@Autowired
 	private ArticleMapper articleMapper;
+	/**
+	 * 获取留言
+	 */
 	@Override
 	public List<Comment> getComment(String userName) {
 		return commentMapper.selectCommentByUserName(userName);
 	}
+	/**
+	 * 删除留言
+	 */
 	@Override
 	public int delComment(Integer commentId) {
 		return commentMapper.delCommentById(commentId);
 	}
+	
+	/**
+	 * 根据ID获取留言
+	 */
 	@Override
 	public List<Comment> getCommentByArticleId(Integer articleId) {
 		articleMapper.updateArticleInfo(articleId, 1, null, null);
 		return commentMapper.selectCommentArticleId(articleId);
 	}
+	/**
+	 * 添加留言
+	 */
 	@Override
 	public int addComment(Integer articleId, String commentAuthorName, String commentAuthorEmail, String commentContent,
 			String commenIp, Date commentCreateTime) {

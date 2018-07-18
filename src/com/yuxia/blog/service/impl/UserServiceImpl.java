@@ -14,12 +14,16 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
-
+	/**
+	 * 注册用户
+	 */
 	@Override
 	public int register(User user) {
 		return userMapper.insertUser(user);
 	}
-
+	/**
+	 * 登录
+	 */
 	@Override
 	public User login(String userName, String password) {
 		User user = userMapper.selectUserByUserName(userName);
@@ -33,7 +37,9 @@ public class UserServiceImpl implements UserService {
 		}
 		return user;
 	}
-
+	/**
+	 * 检查用户名
+	 */
 	@Override
 	public boolean checkUserName(String userName) {
 		User user = userMapper.selectUserByUserName(userName);
@@ -42,7 +48,9 @@ public class UserServiceImpl implements UserService {
 		else
 			return false;
 	}
-
+	/**
+	 * 获取用户信息
+	 */
 	@Override
 	public User getUserInfo(String userName) {
 		User user = userMapper.selectUserByUserName(userName);

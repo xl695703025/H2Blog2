@@ -24,8 +24,6 @@ public class TagController {
 	/**
 	 * 获取所有的Tag
 	 * 
-	 * @param session
-	 * @return
 	 */
 	@RequestMapping(value = "getTagByUserName", method = RequestMethod.POST)
 	@ResponseBody
@@ -39,8 +37,6 @@ public class TagController {
 	/**
 	 * 根据id删除Tag
 	 * 
-	 * @param tagId
-	 * @return
 	 */
 	@RequestMapping(value = "delTag", method = RequestMethod.POST)
 	@ResponseBody

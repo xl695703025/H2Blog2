@@ -27,8 +27,6 @@ public class CommentController {
 	private CommentService commentService;
 	/**
 	 * 获取留言列表
-	 * @param session
-	 * @return
 	 */
 	@RequestMapping(value="getCommentList",method=RequestMethod.POST)
 	@ResponseBody
@@ -40,8 +38,6 @@ public class CommentController {
 	}
 	/**
 	 * 删除留言
-	 * @param commentId
-	 * @return
 	 */
 	@RequestMapping(value="delComment",method=RequestMethod.POST)
 	@ResponseBody

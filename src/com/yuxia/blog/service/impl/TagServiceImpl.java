@@ -14,13 +14,22 @@ public class TagServiceImpl implements TagService {
 	@Autowired
 	private  TagMapper tagMapper;
 	@Override
+	/**
+	 * 获取标签
+	 */
 	public List<Tag> getTagList(String userName) {
 		return tagMapper.selectTagUserName(userName);
 	}
+	/**
+	 * 删除标签
+	 */
 	@Override
 	public int delTagById(Integer tagId) {
 		return tagMapper.delTagById(tagId);
 	}
+	/**
+	 * 添加标签
+	 */
 	@Override
 	public int addTag(String userName, String tagName, String tagDescription) {
 		Tag tag=tagMapper.selectTagByTagName(userName, tagName);
@@ -31,6 +40,9 @@ public class TagServiceImpl implements TagService {
 			return 0;
 		}
 	}
+	/**
+	 * 修改标签
+	 */
 	@Override
 	public int updateTag(Integer tagId, String tagName, String tagDescription) {
 		Tag tag=tagMapper.selectTagByTagId(tagId);

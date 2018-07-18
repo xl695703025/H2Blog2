@@ -100,7 +100,9 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 		return 1;
 	}
-
+	/**
+	 * 修改分类
+	 */
 	@Override
 	public int updateCategory(String userName,Integer categoryId, String categoryName, String categoryDescription) {
 		Category category=categoryMapper.selectCategoryByName(categoryName, userName);
